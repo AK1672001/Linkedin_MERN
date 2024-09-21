@@ -32,14 +32,14 @@ const Navbar = () => {
             <AiFillHome className="text-white  text-2xl sm:text-3xl" />
             <h3 className="text-white font-bold text-xs sm:text-sm hidden sm:block">Home</h3>
           </Link>
-          <div className="flex flex-col items-center ">
+          <Link to="/alluser" className="flex flex-col items-center ">
             <FaUserGroup className="text-white sm:text-3xl text-2xl" />
             <h3 className="text-white font-bold text-xs sm:text-sm hidden sm:block">person</h3>
-          </div>
-          <div className="flex flex-col items-center">
+          </Link>
+          <Link to='/listjob' className="flex flex-col items-center">
             <MdWork className="text-white sm:text-3xl text-2xl" />
             <h3 className="text-white font-bold text-xs sm:text-sm hidden sm:block">job</h3>
-          </div>
+          </Link>
           <div className="flex flex-col items-center">
             <FaFacebookMessenger className="text-white sm:text-3xl text-2xl" />
             <h3 className="text-white font-bold text-xs sm:text-sm hidden sm:block">message</h3>

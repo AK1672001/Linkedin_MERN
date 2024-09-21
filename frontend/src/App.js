@@ -4,8 +4,10 @@ import Navbar from "./component/Navbar";
 import Home from "./pages/Home";
 import { useState } from "react";
 import { createContext,Provider,useContext } from "react";
-import CreatePost from "./component/CreatePost";
+import Alluser from "./component/Alluser";
 import Profilepage from "./component/Profilepage";
+import Jobdetails from "./component/Jobdetails";
+import ListJob from "./component/ListJob";
 const CreateContext=createContext();
 function App() {
  
@@ -15,11 +17,14 @@ function App() {
     <>
     <CreateContext.Provider value={{profileCardPage,setProfileCardPage,createpost,setCreatePost}}>
     <Navbar/>
-    {/* <CreatePost/> */}
+    
     <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/profile" element={<Profilepage/>}/>
-      
+      <Route path="/alluser" element={<Alluser/>}/>
+      <Route path="/jobpage" element={<Jobdetails/>}/>
+      <Route path="/listjob" element={<ListJob/>}/>
+
     </Routes>
     </CreateContext.Provider>
     
