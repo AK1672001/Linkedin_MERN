@@ -1,14 +1,26 @@
-import React from "react";
+
 import img from "../assets/image1.png";
 import { useNavigate } from "react-router-dom";
+import { RxCross2 } from "react-icons/rx";
+import { CreateContext } from "../App";
+import React, { useContext } from 'react'
+
 const Cardpage = () => {
+  const {profileCardPage,setProfileCardPage}=useContext(CreateContext);
+
     const navigate=useNavigate();
     const viewprofile=()=>{
        navigate("/profile")
     }
+    const handleClick=()=>{
+      setProfileCardPage(false)
+    }
   return (
     <>
       <div className=" p-4 -top-10 absolute z-50 right-10 rounded overflow-hidden bg-slate-200 shadow-2xl sm:w-52 mt-7 ml-0 sm:ml-20 lg:w-64">
+      <div>
+            <RxCross2 onClick={()=>handleClick()} className='text-black text-2xl items-center cursor-pointer absolute top-2 right-3 font-bold' />
+        </div>
         <div>
           <div className="flex flex-row">
             <img

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Cardpage from '../pages/Cardpage';
+import { useContext } from 'react';
+import { CreateContext } from "../App";
+
 const JobList = () => {
+    const {profileCardPage,setProfileCardPage}=useContext(CreateContext);
   const jobs = [
     {
       id: 1,
@@ -34,7 +39,9 @@ const JobList = () => {
   ];
 
   return (
-    <div className="job-list-container max-w-6xl mx-auto p-6">
+    <>
+    <div className="job-list-container relative max-w-6xl mx-auto p-6">
+      
       <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">Available Jobs</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {jobs.map((job) => (
@@ -49,7 +56,15 @@ const JobList = () => {
           </div>
         ))}
       </div>
+      
     </div>
+   
+    {profileCardPage &&(
+     <Cardpage className=""/>
+      )}
+ 
+   
+    </>
   );
 };
 

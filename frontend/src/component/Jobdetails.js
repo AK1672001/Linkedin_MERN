@@ -59,6 +59,7 @@ const JobDetails = () => {
           Apply Now
         </button>
       </div>
+      
     </div>
   );
 };
