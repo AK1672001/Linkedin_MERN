@@ -8,9 +8,28 @@ import Alluser from "./component/Alluser";
 import Profilepage from "./component/Profilepage";
 import Jobdetails from "./component/Jobdetails";
 import ListJob from "./component/ListJob";
+import axios from "axios";
+
+import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 const CreateContext=createContext();
+axios.defaults.baseURL='http://localhost:5000'
+axios.defaults.withCredentials=true
 function App() {
- 
+  <ToastContainer
+  position="top-center"
+  autoClose={5000}
+  hideProgressBar={false}
+  newestOnTop={false}
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+  theme="light"
+  />
+
+  
   const[profileCardPage,setProfileCardPage]=useState(false);
   const[createpost,setCreatePost]=useState(false);
   return (
