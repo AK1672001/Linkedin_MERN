@@ -3,17 +3,45 @@ import img from "../assets/image1.png";
 import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import { CreateContext } from "../App";
-import React, { useContext } from 'react'
-
+import React, { useContext ,useEffect} from 'react'
+import { useState } from "react";
+import axios from "axios";
+import Cookies from 'js-cookie';
 const Cardpage = () => {
-  const {profileCardPage,setProfileCardPage}=useContext(CreateContext);
-
+  const {profileCardPage,setProfileCardPage,islogged,setIsLogged}=useContext(CreateContext);
+  const [success, setSuccess] = useState("");
+  
     const navigate=useNavigate();
     const viewprofile=()=>{
        navigate("/profile")
     }
     const handleClick=()=>{
-      setProfileCardPage(false)
+      setProfileCardPage(true)
+    }
+    
+    
+    const handlelogout=async()=>{
+          try{
+               const response=await axios.post("http://localhost:5000/logout");
+               console.log(response.data);
+              //  Cookies.remove("token", { path: "/" });
+              
+               setTimeout(() => {
+                setSuccess(response.data.msg);
+                
+
+              }, 2000);
+              setTimeout(() => {
+                setIsLogged(false)
+             
+               navigate("/login")
+                setProfileCardPage(false)
+               
+              }, 4000);
+          }
+          catch(err){
+             console.log(err)
+          }
     }
   return (
     <>
@@ -60,7 +88,12 @@ const Cardpage = () => {
           <div>
             <p>post and activity</p>
             <p>Job posting account</p>
-            <p>signout</p>
+            {success && (
+          <>
+            <div className="text-green-800 ">{success}</div>
+          </>
+        )}
+            <button onClick={handlelogout} className="font-bold bg-blue-800 text-sm mt-2 text-white p-2 rounded-2xl">signout</button>
           </div>
           <div className="border border-b-2 mt-6"></div>
           

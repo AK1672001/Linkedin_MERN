@@ -60,7 +60,7 @@ const JobList = () => {
                   onClick={() => handleClick(job._id)}
                   className={`${
                     appliedJobs.includes(job._id)
-                      ? "bg-gray-400 cursor-not-allowed"
+                      ? "bg-green-700 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-500"
                   } text-white px-4 rounded-lg mt-2`}
                 disabled={appliedJobs.includes(job._id)}
