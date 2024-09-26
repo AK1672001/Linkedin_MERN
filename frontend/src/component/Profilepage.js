@@ -3,8 +3,9 @@ import img from "../assets/image1.png";
 import { CreateContext } from "../App";
 import CreatePost from "./CreatePost";
 const Profilepage = () => {
-  const {createpost,setCreatePost,profileCardPage,setProfileCardPage}=useContext(CreateContext);
+  const {createpost,setCreatePost,profileCardPage,setProfileCardPage,user,setUser}=useContext(CreateContext);
   useEffect(()=>{
+    
    setProfileCardPage(false);
   },[])
    const handleClick=()=>{
@@ -28,7 +29,7 @@ const Profilepage = () => {
             <div className="flex flex-row justify-between items-center">
               <div className="p-4">
                 <h2 className="px-0 -mt-1 font-bold text-2xl items-center">
-                  amit kushwaha
+                  {user}
                 </h2>
                 <p className="text-sm">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.

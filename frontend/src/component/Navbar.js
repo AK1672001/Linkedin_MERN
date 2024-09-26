@@ -11,12 +11,8 @@ import { CreateContext } from "../App";
 
 import Cookies from "js-cookie";
 const Navbar = () => {
-  const { profileCardPage, setProfileCardPage} =useContext(CreateContext);
-  
-  const  token = Cookies.get("token");
-  
-  console.log("token>> is amit kushwaha",token)
-  
+  const { profileCardPage, setProfileCardPage,user} =useContext(CreateContext);
+  console.log("navbar user>>",user)
   const clickbutton = () => {
     setProfileCardPage(!profileCardPage);
   };
@@ -35,7 +31,7 @@ const Navbar = () => {
           />
         </div>
         <div className="flex sm:flex-row flex-wrap gap-7  sm:gap-6 md:h-4 ml-12 mt-4 sm:ml-0 sm:mt-0">
-          {token &&(
+          {user &&(
             <>
               <Link to="/" className="flex flex-col items-center">
                 <AiFillHome className="text-black  text-2xl sm:text-2xl" />
@@ -80,7 +76,7 @@ const Navbar = () => {
           )}
 
           <div className="space-x-3 mt-0 sm:mt-2">
-            {!token &&(
+            {!user &&(
               <>
                 <Link
                   to="/login"

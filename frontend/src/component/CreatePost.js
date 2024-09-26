@@ -4,7 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import img from "../assets/image1.png";
 import { CreateContext } from '../App';
 const CreatePost = () => {
-    const {createpost,setCreatePost}=useContext(CreateContext);
+    const {createpost,setCreatePost,user,setUser}=useContext(CreateContext);
     const handleClick=()=>{
      setCreatePost(false);
     }
@@ -23,7 +23,7 @@ const CreatePost = () => {
               alt="Profile"
             />
             <div className="sm:ml-4 text-center text-black sm:text-left">
-              <h1 className="font-bold text-xl sm:text-2xl">Amit Kushwaha</h1>
+              <h1 className="font-bold text-xl sm:text-2xl">{user}</h1>
               <h2 className="text-sm font-bold">post to anyway</h2>
               
             </div>

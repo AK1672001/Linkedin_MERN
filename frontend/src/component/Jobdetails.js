@@ -2,6 +2,8 @@ import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RxCross2 } from "react-icons/rx";
+import { CreateContext } from "../App";
+import { useContext } from "react";
 const data={
       position: "top-center",
       autoClose: 1500,
@@ -14,8 +16,8 @@ const data={
 }
 const JobDetails = ({filter,setListJob,handlejobapplied}) => {
   console.log("job job page >>",filter)
-
-
+ 
+  const { profileCardPage, setProfileCardPage } = useContext(CreateContext);
   const handleClick=()=>{
     toast.success('Applied successfully',data);
    
@@ -27,7 +29,7 @@ const JobDetails = ({filter,setListJob,handlejobapplied}) => {
   }
   const handlebutton=()=>{
     setListJob(false)
-
+    setProfileCardPage(false)
   }
   return (
     <div className="job-details-container absolute z-50 top-2 sm:bg-slate-50  sm:shadow-lg  shadow-2xl  bg-blue-400 sm:top-0 max-w-4xl sm:ml-20 p-2 sm:p-6">

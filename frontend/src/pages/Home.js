@@ -5,7 +5,7 @@ import Postall from "../component/Postall";
 import { CreateContext } from "../App";
 import Cardpage from "./Cardpage";
 const Home = () => {
-  const {profileCardPage,setProfileCardPage}=useContext(CreateContext);
+  const {profileCardPage,setProfileCardPage,user,setUser}=useContext(CreateContext);
   return (
     <div className="relative px-4 sm:px-8 lg:px-16 py-7 grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 bg-gray-50">
       {/* first div start */}
@@ -23,7 +23,7 @@ const Home = () => {
           ></img>
           <div>
             <h2 className="flex flex-row justify-center font-bold text-sm mt-3 sm:mt-3">
-              amit kushwaha
+            {user}
             </h2>
             <p className="flex flex-row justify-center text-sm">
               Mern Developer

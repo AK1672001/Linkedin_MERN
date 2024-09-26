@@ -4,13 +4,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CreateContext } from "../App";
 import Cookies from "js-cookie";
+import { ToastContainer, toast } from 'react-toastify';
+import {jwtDecode} from 'jwt-decode';
 const Signin = ({ onSwitch }) => {
   const navigate = useNavigate("");
-  const { islogged, setIsLogged } = useContext(CreateContext);
+  const { islogged, setIsLogged,user,setUser } = useContext(CreateContext);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  
-  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,23 +20,19 @@ const Signin = ({ onSwitch }) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:5000/login",
         formData,
-        
+        { withCredentials: true }
       );
-      console.log(response.data);
-      // console.log("token>>",response.data.token)
-      Cookies.set("token", response.data.token, { expires: 7, path: "/" });
-      console.log("Token set in cookies:", response.data.token);
       
-     
       setTimeout(() => {
         setSuccess(response.data.msg);
+        
         setIsLogged(true);
         
         navigate("/");
@@ -51,9 +47,9 @@ const Signin = ({ onSwitch }) => {
       }
     }
   };
-
   return (
     <div className="bg-gray-100 flex items-center justify-center min-h-screen">
+      <ToastContainer/>
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
         {error && (
           <>

@@ -7,7 +7,10 @@ import { FaShareSquare } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { PiHandsClappingDuotone } from "react-icons/pi";
 import img from "../assets/image1.png";
+import { CreateContext } from "../App";
+import { useContext } from "react";
 const Postall = () => {
+ const {user,setUser}=useContext(CreateContext);
   return (
     <>
       <div>
@@ -48,7 +51,7 @@ const Postall = () => {
               alt="Profile"
             />
             <div className="sm:ml-4 text-center sm:text-left">
-              <h1 className="font-bold text-xl sm:text-2xl">Amit Kushwaha</h1>
+              <h1 className="font-bold text-xl sm:text-2xl">{user}</h1>
               <h2 className="text-sm text-gray-600">Web Developer</h2>
               <p className="text-xs text-gray-500">1 week ago</p>
             </div>

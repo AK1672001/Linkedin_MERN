@@ -7,6 +7,7 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
+    position:""
   });
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -137,6 +138,25 @@ const Signup = () => {
               required
               className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Create a password"
+            />
+          </div>
+
+          <div className="mt-4">
+            <label
+              htmlFor="position"
+              className="block text-sm font-medium text-gray-700"
+            >
+              position
+            </label>
+            <input
+              type="position"
+              id="position"
+              name="position"
+              value={formData.position}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="software developer"
             />
           </div>
           <button

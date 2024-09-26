@@ -8,15 +8,16 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from 'js-cookie';
 const Cardpage = () => {
-  const {profileCardPage,setProfileCardPage,islogged,setIsLogged}=useContext(CreateContext);
+  const {profileCardPage,setProfileCardPage,islogged,setIsLogged,user,setUser}=useContext(CreateContext);
   const [success, setSuccess] = useState("");
-  
+   
+   
     const navigate=useNavigate();
     const viewprofile=()=>{
        navigate("/profile")
     }
     const handleClick=()=>{
-      setProfileCardPage(true)
+      setProfileCardPage(false)
     }
     
     
@@ -32,7 +33,7 @@ const Cardpage = () => {
 
               }, 2000);
               setTimeout(() => {
-                setIsLogged(false)
+                setUser(null)
              
                navigate("/login")
                 setProfileCardPage(false)
@@ -57,7 +58,7 @@ const Cardpage = () => {
             ></img>
             <div>
               <h2 className=" font-bold text-sm">
-                amit kushwaha
+                {user}
               </h2>
               <p className="p-2 text-sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
