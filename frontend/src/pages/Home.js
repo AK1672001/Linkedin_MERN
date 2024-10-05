@@ -1,11 +1,16 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import img from "../assets/image1.png";
 import NewsCard from "./NewsCard";
 import Postall from "../component/Postall";
 import { CreateContext } from "../App";
 import Cardpage from "./Cardpage";
+import { useLocation } from 'react-router-dom';
 const Home = () => {
-  const {profileCardPage,setProfileCardPage,user,setUser}=useContext(CreateContext);
+  const {profileCardPage,setProfileCardPage,user,setUser,image,setImage,position,setPosition}=useContext(CreateContext);
+  const {pathname} = useLocation();
+  const [hasReloaded, setHasReloaded] = useState(false); 
+  const isHome=pathname=="/"
+  console.log("location>>",isHome)
   return (
     <div className="relative px-4 sm:px-8 lg:px-16 py-7 grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 bg-gray-50">
       {/* first div start */}
@@ -18,7 +23,7 @@ const Home = () => {
           />
 
           <img
-            src={img}
+            src={image}
             className="font-bold ml-36 sm:ml-20  -mt-8 sm:-mt-8 relative z-40 sm:z-40 flex flex-row  justify-center bg-teal-500 rounded-full w-20 h-20 text-xl"
           ></img>
           <div>
@@ -26,7 +31,7 @@ const Home = () => {
             {user}
             </h2>
             <p className="flex flex-row justify-center text-sm">
-              Mern Developer
+            {position}
             </p>
             <div className="border border-b-2 mt-6"></div>
           </div>

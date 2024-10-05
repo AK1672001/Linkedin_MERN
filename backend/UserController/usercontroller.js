@@ -5,8 +5,8 @@ const dotenv = require("dotenv");
 const cookies = require("cookies");
 dotenv.config();
 const signup = async (req, res) => {
-  const { name, email, password,position } = req.body;
-  if (!name || !email || !password||! position)
+  const { name, email, password,position,image } = req.body;
+  if (!name || !email || !password||! position || !image)
     return res.status(404).json({ msg: "please fill all tha details" });
   try {
     const data = await userModal.findOne({ email });
@@ -18,6 +18,8 @@ const signup = async (req, res) => {
       email,
       position,
       password: hashPassword,
+      image,
+      
     });
     await user.save();
 
@@ -42,9 +44,9 @@ const sigin = async (req, res) => {
       return res.status(404).json({ msg: "Please correct this password" });
 
     const token = await jwt.sign(
-      { userId: user._id, user: user.name },
+      { userId: user._id, user: user.name,userImage:user.image,position:user.position },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "7d" }
     );
 
     return res.cookie("token_amit", token, {
@@ -125,4 +127,25 @@ const logout = async (req, res) => {
           return res.status(404).json({msg:err.message})
         }
   }
-module.exports = { signup, sigin, logout,decodeToken ,getalluser,deleteuser};
+  const setuser = async (req, res) => {
+    const { user,background } = req.body;
+    if (!user|| !background)
+      return res.status(404).json({ msg: "please provide backgroundImage" });
+    try {
+      
+      const updatedUser = await userModal.findOneAndUpdate(
+        { name:user }, // Find user by 'user' field
+        { $set: { backgroundimage: background } }, // Update background image
+        { new: true } // Return the updated document
+      );
+      if (updatedUser) {
+        console.log("Updated user>>", updatedUser);
+        return res.status(200).json({ msg: "Background image updated successfully",bgimage:updatedUser.backgroundimage});
+      } else {
+        return res.status(404).json({ msg: "User not found" });
+      }
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  };
+module.exports = { signup, sigin, logout,decodeToken ,getalluser,deleteuser,setuser};

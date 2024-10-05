@@ -117,7 +117,7 @@ const Alluser = () => {
   }
   return (
     <>
-      <div className="alluser grid sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
+      <div className="alluser grid sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
       {success && (
           <>
             <div className="text-green-800 ">{success}</div>
@@ -127,11 +127,11 @@ const Alluser = () => {
         {allUsers.map((user, index) => (
           <div
             key={index}
-            className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center space-y-4"
+            className="bg-white shadow-2xl rounded-lg p-4 flex flex-col items-center space-y-4"
           >
             <img
               className="rounded-full w-24 h-24"
-              src={img}
+              src={user.image}
               
             />
             <div className="text-center">

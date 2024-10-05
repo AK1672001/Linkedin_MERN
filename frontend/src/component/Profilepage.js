@@ -1,9 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import img from "../assets/image1.png";
 import { CreateContext } from "../App";
 import CreatePost from "./CreatePost";
+import { MdOutlineModeEditOutline } from "react-icons/md"
+import Updateimg from "./Updateimg";
+import { storage } from "../component/firebase";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const Profilepage = () => {
-  const {createpost,setCreatePost,profileCardPage,setProfileCardPage,user,setUser}=useContext(CreateContext);
+  const {createpost,setCreatePost,setProfileCardPage,user,image,imageupdate,setImageUpdate,bgImage,setBgImage}=useContext(CreateContext);
+   
+ 
   useEffect(()=>{
     
    setProfileCardPage(false);
@@ -13,16 +19,25 @@ const Profilepage = () => {
     
 
    }
+   const handleedit=()=>{
+    setImageUpdate(true)
+    console.log("imageupload",imageupdate)
+   }
   return (
     <>
       <div className=" relative px-4 sm:px-8 lg:px-16 py-7 grid grid-cols-1 sm:grid-cols-2 gap-6  mt-5">
         <div>
-          <div className="rounded overflow-hidden shadow-lg w-full sm:ml-32 ">
-            <img className="w-full  h-48" src={img} alt="" />
+          <div className="rounded relative overflow-hidden shadow-lg w-full sm:ml-32 ">
+            <img className="w-full  h-48" src={bgImage||""}  alt="" />
+            <MdOutlineModeEditOutline onClick={handleedit} className="absolute  cursor-pointer text-blue-800 font-bold text-2xl right-2 top-1 " />
+
+       
+
+            
             <div>
               <img
                 className=" rounded-full w-24 relative z-50 -mt-16 ml-5  h-24"
-                src={img}
+                src={image}
                 alt=""
               />
             </div>
@@ -218,6 +233,13 @@ const Profilepage = () => {
           
         </div>
       </div>
+      {
+        imageupdate &&(
+          <>
+          <Updateimg/>
+          </>
+        )
+      }
     </>
   );
 };

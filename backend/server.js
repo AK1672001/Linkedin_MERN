@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 dotenv.config();
 const router=require("./Router")
 const userrouter=require("./UserRouter/userrouter")
+const userpostrouter=require("./UserRouter/userpostrouter");
 const cors=require("cors")
 const server=express();
 server.use(cookieParser());
@@ -20,9 +21,15 @@ server.listen(process.env.PORT,()=>{
     console.log(`server is running ${process.env.PORT}`)
 })
 
+
+
+
+
+
 server.use(cors({
    origin:"http://localhost:3000" ,
    credentials:true
 }))
 server.use(router)
 server.use(userrouter)
+server.use(userpostrouter);

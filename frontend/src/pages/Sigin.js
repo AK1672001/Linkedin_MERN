@@ -27,9 +27,9 @@ const Signin = ({ onSwitch }) => {
       const response = await axios.post(
         "http://localhost:5000/login",
         formData,
-        { withCredentials: true }
+        
       );
-      
+      console.log("response>>",response.data)
       setTimeout(() => {
         setSuccess(response.data.msg);
         

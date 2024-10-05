@@ -19,7 +19,14 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    
+    image:{
+        type:String,
+        required:true
+    },
+    backgroundimage:{
+        type:String,
+        required:false
+    }
 })
 
 const userModal= mongoose.model("userModal",userSchema);

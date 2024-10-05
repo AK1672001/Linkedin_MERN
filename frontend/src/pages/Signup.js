@@ -2,12 +2,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { storage } from "../component/firebase";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    position:""
+    position:"",
+    image: null,
   });
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -16,33 +19,25 @@ const Signup = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
+  };
 
-  //   useEffect(() => {
-  //     const data = async () => {
-  //       const response = await axios.post(
-  //         "http://localhost:5000/signup",
-  //         formData
-  //       );
-  //       console.log(response.data);
-  //       setTimeout(() => {
-  //         setSuccess(response.data.msg);
-  //         // navigate("/login")
-  //       }, 1000);
-
-  //       setTimeout(() => {
-  //         navigate("/login");
-  //       }, 4000);
-  //     };
-  //     data();
-  //   }, []);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/signup",
-        formData
-      );
+      let imageUrl = "";
+      if (formData.image) {
+        const storageRef = ref(storage, `images/${formData.image.name}`);
+        const snapshot = await uploadBytes(storageRef, formData.image);
+        imageUrl = await getDownloadURL(snapshot.ref);  
+      }
+      const response = await axios.post("http://localhost:5000/signup", {
+        ...formData,
+        image: imageUrl 
+      });
       console.log(response.data);
 
       setTimeout(() => {
@@ -157,6 +152,18 @@ const Signup = () => {
               required
               className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="software developer"
+            />
+          </div>
+                   {/* Image Upload */}
+                   <div className="mt-4">
+            <label htmlFor="image" className="block text-sm font-medium text-gray-700">Profile Image</label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             />
           </div>
           <button

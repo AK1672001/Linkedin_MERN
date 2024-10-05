@@ -10,7 +10,7 @@ import img from "../assets/image1.png";
 import { CreateContext } from "../App";
 import { useContext } from "react";
 const Postall = () => {
- const {user,setUser}=useContext(CreateContext);
+ const {user,setUser,image}=useContext(CreateContext);
   return (
     <>
       <div>
@@ -47,7 +47,7 @@ const Postall = () => {
           <div className="flex flex-col sm:flex-row items-center p-4 space-y-4 sm:space-y-0">
             <img
               className="rounded-full w-16 h-16 sm:w-20 sm:h-20"
-              src={img}
+              src={image}
               alt="Profile"
             />
             <div className="sm:ml-4 text-center sm:text-left">

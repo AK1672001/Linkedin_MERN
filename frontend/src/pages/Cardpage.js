@@ -8,7 +8,7 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from 'js-cookie';
 const Cardpage = () => {
-  const {profileCardPage,setProfileCardPage,islogged,setIsLogged,user,setUser}=useContext(CreateContext);
+  const {profileCardPage,setProfileCardPage,user,setUser,image}=useContext(CreateContext);
   const [success, setSuccess] = useState("");
    
    
@@ -53,7 +53,7 @@ const Cardpage = () => {
         <div>
           <div className="flex flex-row">
             <img
-              src={img}
+              src={image}
               className="font-bold  flex flex-row  justify-center bg-teal-500 rounded-full w-16 h-16 "
             ></img>
             <div>
