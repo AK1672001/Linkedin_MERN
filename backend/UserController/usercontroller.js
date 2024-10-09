@@ -134,9 +134,9 @@ const logout = async (req, res) => {
     try {
       
       const updatedUser = await userModal.findOneAndUpdate(
-        { name:user }, // Find user by 'user' field
-        { $set: { backgroundimage: background } }, // Update background image
-        { new: true } // Return the updated document
+        { name:user }, 
+        { $set: { backgroundimage: background } }, 
+        { new: true } 
       );
       if (updatedUser) {
         console.log("Updated user>>", updatedUser);

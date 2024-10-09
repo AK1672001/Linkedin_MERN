@@ -26,7 +26,28 @@ const userSchema=new mongoose.Schema({
     backgroundimage:{
         type:String,
         required:false
+    },
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserPostModal"  // Refers to the Post schema
+      }],
+    skill:{
+        type:[String],
+        required:false
+    },
+    about:{
+        type:String,
+        required:false
+    },
+    education:{
+        type:[String],
+        required:false
+    },
+    experience:{
+        type:[String],
+        required:false
     }
+    
 })
 
 const userModal= mongoose.model("userModal",userSchema);

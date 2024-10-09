@@ -35,12 +35,35 @@ function App() {
   const [createpost, setCreatePost] = useState(false);
   const [islogged, setIsLogged] = useState(false);
   const [user, setUser] = useState("");
+  const[userId,setUserId]=useState("")
   const [image, setImage] = useState("")
   const [position, setPosition] = useState("");
  const[bgImage,setBgImage]=useState("")
   const[imageupdate,setImageUpdate]=useState(false)
-  console.log("imageupload",imageupdate)
-  console.log("user here>>",user)
+  const[mypost,setMyPost]=useState(false)
+  const [userskill,setUserSkill]=useState(false);
+  // const [showuserskill,setShowUserSkill]=useState(false)
+
+  const[skilluser,setSkillUser]=useState([]);
+
+  useEffect(()=>{
+        const skilldata=async()=>{
+            try{
+                 const response=await axios.get("http://localhost:5000/getuserallprofile") 
+                 console.log(response.data.userdata);
+                 console.log("response.data>>",response.data.userdata);
+                 const data=response.data.userdata
+                const skills = data.map((user) => user.skill).flat();
+                setSkillUser(skills);  
+                console.log("skills:", skills);
+                 
+            }
+            catch(err){
+              console.log(err)
+            }
+        }
+        skilldata();
+  },[])
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -51,6 +74,7 @@ function App() {
           console.log("user ",response.data.decodedToken.user.name)
           setPosition(response.data.decodedToken.position)
           setImage(response.data.decodedToken.userImage)
+          setUserId(response.data.decodedToken.userId)
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -77,7 +101,12 @@ function App() {
           setUser,
           image,setImage,position,setPosition,
           imageupdate,setImageUpdate,
-          bgImage,setBgImage
+          bgImage,setBgImage,
+          userId,setUserId,
+          mypost,setMyPost,
+          userskill,setUserSkill,
+          // showuserskill,setShowUserSkill,
+          skilluser,setSkillUser
         }}
       >
         <Navbar />
@@ -90,6 +119,7 @@ function App() {
               <Route path="/alluser" element={<Alluser />} />
               <Route path="/jobpage" element={<Jobdetails />} />
               <Route path="/listjob" element={<ListJob />} />
+              
              
             </>
               ) : (  

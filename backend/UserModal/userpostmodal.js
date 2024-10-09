@@ -8,7 +8,13 @@ const userpostschema=new mongoose.Schema({
     imagepost:{
         type:String,
         requried:false
-    }
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userModal",  
+        required: true
+      },
+    createdAt: { type: Date, default: Date.now }
 })
 
 const UserPostModal= mongoose.model("UserPostModal",userpostschema);

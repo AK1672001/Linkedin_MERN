@@ -7,11 +7,11 @@ import { storage } from "../component/firebase";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 const CreatePost = () => {
-  const { createpost, setCreatePost, user, setUser, image } =
-    useContext(CreateContext);
+  const { createpost, setCreatePost, user, setUser,userId, image } =useContext(CreateContext);
   const [uploading, setUpLoading] = useState(true);
   const [description, setDesCription] = useState("");
   const [imagepost, setImagePost] = useState("");
+  const[success,setSuccess]=useState("")
   const handlechange = (e) => {
     e.preventDefault();
     setDesCription(e.target.value);
@@ -29,9 +29,9 @@ const CreatePost = () => {
       console.log("Download URL:", imageURL);
       setImagePost(imageURL);
       setUpLoading(false);
-      setTimeout(()=>{
+      setTimeout(() => {
         setUpLoading(true);
-      },5000)
+      }, 5000);
     } catch (error) {
       console.error("Error uploading or getting download URL:", error);
     }
@@ -40,11 +40,16 @@ const CreatePost = () => {
     try {
       const response = await axios.post(
         "http://localhost:5000/userpostdetails",
-        { description, imagepost }
+        { description, imagepost,userId }
       );
       console.log("response>>>", response.data.post);
+      setSuccess(response.data.msg);
+      setTimeout(()=>{
+       setSuccess("")
+      },3000)
       console.log("message", description);
       setDesCription("");
+    
       setImagePost(null);
     } catch (err) {
       console.log(err);
@@ -77,7 +82,13 @@ const CreatePost = () => {
             </div>
           </div>
 
-          {/* Card Body */}
+          {
+            success&&(
+              <>
+              <p className="text-green-800 font-bold text-2xl">{success}</p>
+              </>
+            )
+          }
           <div className="px-4 py-2">
             <textarea
               value={description}
@@ -90,60 +101,46 @@ const CreatePost = () => {
             {/* Image */}
             <img
               src={imagepost}
-              className="font-bold bg-teal-500 w-full h-56 object-cover mb-4"
-              alt="Post Image"
+              className="font-bold bg-slate-100 w-full h-56 object-cover mb-4"
+              alt="post image here.."
             />
 
             <div className="border-t mt-4"></div>
             <div className="flex flex-row justify-between items-center">
-              {
-                !imagepost?(
-                  <>
+              {!imagepost ? (
+                <>
                   <input
-                onChange={handleFileChange}
-                className="mt-2"
-                id="file-input"
-                type="file"
-                accept="image/*"
-              />
-                  </>
-                ):(
+                    onChange={handleFileChange}
+                    className="mt-2"
+                    id="file-input"
+                    type="file"
+                    accept="image/*"
+                  />
+                </>
+              ) : (
+                <button
+                  onClick={handlebuttonclick}
+                  className={`w-48 p-2 ml-auto rounded-xl mt-2 ${
+                    uploading
+                      ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                      : "bg-blue-800 text-white"
+                  }`}
+                >
+                  post
+                </button>
+              )}
+
+              {description && !imagepost ? (
+                <>
                   <button
-                
-                onClick={handlebuttonclick}
-                className={`w-48 p-2 ml-auto rounded-xl mt-2 ${
-                  uploading
-                    ? "bg-gray-400 text-gray-700 cursor-not-allowed"
-                    : "bg-blue-800 text-white"
-                }`}
-              >
-                post
-              </button>
-                )
-              }
-
-              {
-                description && !imagepost?(
-                  <>
-                  <button
-              
-                onClick={handlebuttonclick}
-                className="w-48 bg-blue-500 p-2 ml-auto rounded-xl mt-3"
-              >
-                post
-              </button>
-                  </>
-                ):(
-                  null
-                )
-              }
-
-
-
-
-
+                    onClick={handlebuttonclick}
+                    className="w-48 bg-blue-500 p-2 ml-auto rounded-xl mt-3"
+                  >
+                    post
+                  </button>
+                </>
+              ) : null}
             </div>
-            
           </div>
         </div>
       </div>
